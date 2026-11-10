@@ -1,5 +1,5 @@
 ---
-import { displayFact, formatVerified } from "../../lib/display";
+import { displayFact } from "../../lib/display";
 import type { ParkingLot } from "../../lib/post-schema";
 
 interface Props { lots: ParkingLot[]; }
@@ -8,6 +8,7 @@ const lotClass = (label: string) => (label === "P2" ? "lot p2" : label === "P3" 
 ---
 <section id="parking" aria-labelledby="parking-title">
   <h2 id="parking-title">주차장 비교</h2>
+  <slot />
   {lots.length === 0 ? (
     <p class="unknown">확인되지 않음</p>
   ) : (
@@ -20,7 +21,6 @@ const lotClass = (label: string) => (label === "P2" ? "lot p2" : label === "P3" 
             <th>요금</th>
             <th>운영시간</th>
             <th>특징</th>
-            <th>마지막 확인</th>
           </tr>
         </thead>
         <tbody>
@@ -36,7 +36,6 @@ const lotClass = (label: string) => (label === "P2" ? "lot p2" : label === "P3" 
                 <td data-label="요금">{displayFact(lot.fee_text)}</td>
                 <td data-label="운영시간">{displayFact(hours || null)}</td>
                 <td data-label="특징">{displayFact(lot.feature)}</td>
-                <td data-label="마지막 확인">{formatVerified(lot.verified_at)}</td>
               </tr>
             );
           })}

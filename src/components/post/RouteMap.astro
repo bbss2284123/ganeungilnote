@@ -11,7 +11,7 @@ const { map, sample = false } = Astro.props;
   ) : (
     <figure class="route-fig">
       {map.src ? (
-        <img src={map.src} alt={map.alt} width="1200" height="900" />
+        <a class="zoomable" href={map.src} data-zoom aria-label={`${map.alt} 크게 보기`}><img src={map.src} alt={map.alt} width="1200" height="980" loading="lazy" decoding="async" /></a>
       ) : (
         <div class="schematic" role="img" aria-label={map.alt}>
           {sample && <p class="sample-flag">예시·미검증</p>}
@@ -24,12 +24,13 @@ const { map, sample = false } = Astro.props;
           <div class="node p3">P3<small>주차장</small></div>
         </div>
       )}
-      {map.src && map.schematic && <p class="schematic-flag">개념도·축척 없음</p>}
-      <figcaption>
-        {map.schematic ? "개념도·축척 없음. " : ""}
-        {map.verified ? "경로를 확인한 그림입니다. " : "거리와 소요 시간은 이 그림으로 읽지 않습니다. "}
-        {map.caption ?? "확인되지 않음"}
-      </figcaption>
+      {!map.src && (
+        <figcaption>
+          {map.schematic ? "개념도·축척 없음. " : ""}
+          {map.caption ?? "확인되지 않음"}
+        </figcaption>
+      )}
+      {map.src && map.caption && <figcaption>{map.caption}</figcaption>}
     </figure>
   )}
 </section>

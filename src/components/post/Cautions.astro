@@ -4,6 +4,7 @@ const { items } = Astro.props;
 ---
 <section id="caution" aria-labelledby="caution-title">
   <h2 id="caution-title">방문 전 주의</h2>
+  <slot />
   {items.length === 0 ? (
     <p class="unknown">확인되지 않음</p>
   ) : (

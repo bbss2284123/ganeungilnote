@@ -2,8 +2,8 @@
 import { displayFact } from "../../lib/display";
 import type { PostFrontmatter } from "../../lib/post-schema";
 
-interface Props { summary: PostFrontmatter["summary"]; verified: string; }
-const { summary, verified } = Astro.props;
+interface Props { summary: PostFrontmatter["summary"]; }
+const { summary } = Astro.props;
 
 const rows: { label: string; text: string; href?: string | null; link?: string }[] = [
   { label: "위치", text: displayFact(summary.location), href: summary.map_url, link: "지도에서 보기" },
@@ -14,11 +14,11 @@ const rows: { label: string; text: string; href?: string | null; link?: string }
   { label: "주차", text: displayFact(summary.parking) },
   { label: "대중교통", text: displayFact(summary.transit) },
   { label: "공식 링크", text: displayFact(summary.official_url), href: summary.official_url, link: "공식 페이지" },
-  { label: "확인일", text: verified },
 ];
 ---
 <section id="summary" aria-labelledby="summary-title">
   <h2 id="summary-title">한눈에 보는 정보표</h2>
+  <slot />
   <dl class="summary">
     {rows.map((row) => {
       const missing = row.text === "확인되지 않음";

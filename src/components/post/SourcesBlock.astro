@@ -1,24 +1,19 @@
 ---
-import { formatKo } from "../../lib/dates";
 import { UNKNOWN } from "../../lib/display";
 import type { PostFrontmatter } from "../../lib/post-schema";
 
-interface Props { sources: PostFrontmatter["sources"]; verified: string; }
-const { sources, verified } = Astro.props;
+interface Props { sources: PostFrontmatter["sources"]; }
+const { sources } = Astro.props;
 ---
 <section id="sources" aria-labelledby="sources-title">
-  <h2 id="sources-title">출처와 기준일</h2>
-  <p>기준 시간대는 Asia/Seoul입니다. 확인 시각: <span class:list={{ unknown: verified === UNKNOWN }}>{verified}</span></p>
+  <h2 id="sources-title">출처</h2>
   {sources.length === 0 ? (
-    <p class="unknown">등록된 출처가 없습니다. {UNKNOWN}</p>
+    <p class="unknown">{UNKNOWN}</p>
   ) : (
-    <ol class="sources">
+    <ul class="sources">
       {sources.map((source) => (
-        <li>
-          <a href={source.url} rel="noopener noreferrer">{source.title}</a>
-          <div>확인 {formatKo(source.checked_at)} · Asia/Seoul</div>
-        </li>
+        <li><a href={source.url} rel="noopener noreferrer">{source.title}</a></li>
       ))}
-    </ol>
+    </ul>
   )}
 </section>

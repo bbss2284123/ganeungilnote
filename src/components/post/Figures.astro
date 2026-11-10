@@ -1,0 +1,15 @@
+---
+import type { PostFigure } from "../../lib/post-schema";
+
+interface Props { items?: PostFigure[]; section: PostFigure["section"]; }
+const { items = [], section } = Astro.props;
+const list = items.filter((item) => item.section === section);
+---
+{list.map((item) => (
+  <figure class="post-figure">
+    <a class="zoomable" href={item.src} data-zoom aria-label={`${item.alt} 크게 보기`}>
+      <img src={item.src} alt={item.alt} width={item.width} height={item.height} loading="lazy" decoding="async" />
+    </a>
+    {item.caption && <figcaption>{item.caption}</figcaption>}
+  </figure>
+))}
