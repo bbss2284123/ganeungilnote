@@ -1,0 +1,27 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  caption?: string;
+  credit?: string;
+  creditUrl?: string;
+  license?: string;
+  licenseUrl?: string;
+}
+const { src, alt, width, height, caption, credit, creditUrl, license, licenseUrl } = Astro.props;
+---
+<figure class="post-figure">
+  <a class="zoomable" href={src} data-zoom aria-label={`${alt} 크게 보기`}>
+    <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" />
+  </a>
+  {(caption || credit) && (
+    <figcaption>
+      {caption}
+      {credit && (
+        <span class="credit">{caption ? " · " : ""}사진: {creditUrl ? <a href={creditUrl} rel="noopener noreferrer">{credit}</a> : credit}{license && ", "}{license && (licenseUrl ? <a href={licenseUrl} rel="license noopener noreferrer">{license}</a> : license)}</span>
+      )}
+    </figcaption>
+  )}
+</figure>
