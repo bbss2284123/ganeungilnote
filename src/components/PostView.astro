@@ -9,9 +9,9 @@ import RouteMap from "./post/RouteMap.astro";
 import RestaurantCards from "./post/RestaurantCards.astro";
 import Cautions from "./post/Cautions.astro";
 import SourcesBlock from "./post/SourcesBlock.astro";
+import Figures from "./post/Figures.astro";
 import { categoryById, siteConfig, absoluteUrl } from "../../site.config";
 import { authorName, categoryName, categoryPath, postPath, tagLabel, tagPath, type PostEntry } from "../lib/posts";
-import { formatVerified } from "../lib/display";
 
 interface Props {
   post: PostEntry;
@@ -25,14 +25,24 @@ interface Props {
 const { post, Content, related, published, prev, next } = Astro.props;
 const data = post.data;
 const category = categoryById(data.category);
-const verified = formatVerified(data.verified_at);
 const noindex = data.draft || data.sample;
-const anchors = [
+const figures = data.figures ?? [];
+const story = data.body_layout === "story";
+const anchors = story ? [
+  ["#summary", "한눈에"],
+  ["#hours", "점등 시간"],
+  ["#transport", "가는 법"],
+  ["#parking", "주차장"],
+  ["#route", "걷는 길"],
+  ["#facilities", "편의시설"],
+  ["#caution", "방문 전"],
+  ["#sources", "출처"],
+] : [
   ["#summary", "한눈에"],
   ["#transport", "찾아가는 법"],
   ["#parking", "주차장"],
-  ["#route", "동선"],
-  ["#food", "맛집"],
+  ...(data.route_map ? [["#route", "동선"]] : []),
+  ...(data.restaurants.length ? [["#food", "맛집"]] : []),
   ["#caution", "방문 전 주의"],
   ["#sources", "출처"],
   ["#related", "관련 글"],
@@ -54,6 +64,7 @@ const jsonLd = noindex ? [] : [{
   title={data.title}
   description={data.description}
   path={noindex ? `/draft/${post.id}/` : postPath(post.id)}
+  ogImage={data.hero_image ?? undefined}
   type="article"
   current={data.category}
   noindex={noindex}
@@ -73,11 +84,18 @@ const jsonLd = noindex ? [] : [{
             {data.region ? ` · ${data.region}` : ""}
           </p>
           <h1>{data.title}</h1>
-          <p class="caption">확인일 {verified} · {authorName(post)}</p>
+          <p class="caption">{authorName(post)}</p>
           <div class="chip-row">
             {data.tags.map((tag) => <a class="chip" href={tagPath(tag)}>{tagLabel(tag)}</a>)}
           </div>
         </header>
+        {data.hero_image && (
+          <figure class="post-hero">
+            <a class="zoomable" href={data.hero_image} data-zoom aria-label={`${data.hero_alt ?? data.title} 크게 보기`}>
+              <img src={data.hero_image} alt={data.hero_alt ?? ""} width="1200" height="675" loading="eager" fetchpriority="high" decoding="async" />
+            </a>
+          </figure>
+        )}
         <div class="lede">
           {data.lede.map((line) => <p>{line}</p>)}
         </div>
@@ -85,17 +103,21 @@ const jsonLd = noindex ? [] : [{
           {anchors.map(([href, label]) => <a href={href}>{label}</a>)}
         </nav>
         <AdSlot position="after-intro" />
-        <div class="prose">
+        <div class:list={["prose", { story }]}>
           <Content />
         </div>
-        <SummaryTable summary={data.summary} verified={verified} />
-        <TransportGuide car={data.transport.car} walk={data.transport.walk} rail={data.transport.rail} />
-        <ParkingTable lots={data.parking_lots} />
-        <RouteMap map={data.route_map} sample={data.sample} />
-        <RestaurantCards restaurants={data.restaurants} />
-        <Cautions items={data.cautions} />
+        {!story && (
+          <>
+            <SummaryTable summary={data.summary}><Figures items={figures} section="summary" /></SummaryTable>
+            <TransportGuide car={data.transport.car} walk={data.transport.walk} rail={data.transport.rail}><Figures items={figures} section="transport" /></TransportGuide>
+            <ParkingTable lots={data.parking_lots}><Figures items={figures} section="parking" /></ParkingTable>
+            {data.route_map && <RouteMap map={data.route_map} sample={data.sample} />}
+            {data.restaurants.length > 0 && <RestaurantCards restaurants={data.restaurants} />}
+            <Cautions items={data.cautions}><Figures items={figures} section="caution" /></Cautions>
+          </>
+        )}
         <AdSlot position="end" />
-        <SourcesBlock sources={data.sources} verified={verified} />
+        <SourcesBlock sources={data.sources} />
         <section id="related" aria-labelledby="related-title">
           <h2 id="related-title">관련 글</h2>
           {related.length === 0 ? (
@@ -117,4 +139,27 @@ const jsonLd = noindex ? [] : [{
       <Sidebar posts={published} />
     </div>
   </main>
+  <div class="zoom-layer" hidden><img alt="" /><button type="button" class="zoom-close" aria-label="닫기">×</button></div>
+  <script is:inline>
+    (() => {
+      const layer = document.querySelector(".zoom-layer");
+      if (!layer) return;
+      const img = layer.querySelector("img");
+      const close = () => { layer.hidden = true; img.removeAttribute("src"); document.body.style.overflow = ""; };
+      document.addEventListener("click", (event) => {
+        const link = event.target.closest && event.target.closest("a[data-zoom]");
+        if (link) {
+          event.preventDefault();
+          const inner = link.querySelector("img");
+          img.src = link.getAttribute("href");
+          img.alt = inner ? inner.alt : "";
+          layer.hidden = false;
+          document.body.style.overflow = "hidden";
+        } else if (!layer.hidden && layer.contains(event.target)) {
+          close();
+        }
+      });
+      document.addEventListener("keydown", (event) => { if (event.key === "Escape" && !layer.hidden) close(); });
+    })();
+  </script>
 </Base>

@@ -1,7 +1,6 @@
 ---
 import { categoryById } from "../../site.config";
 import { categoryName, tagLabel } from "../lib/posts";
-import { formatVerified } from "../lib/display";
 
 interface Props {
   href: string;
@@ -17,8 +16,6 @@ interface Props {
 }
 const { href, title, excerpt, category, region, topics = [], verifiedAt = null, image, imageAlt = "", eager = false } = Astro.props;
 const meta = categoryById(category);
-const verified = formatVerified(verifiedAt);
-const showVerified = verified !== "확인되지 않음";
 ---
 <article class="card" data-cat={category}>
   <a class="card-link" href={href}>
@@ -43,7 +40,6 @@ const showVerified = verified !== "확인되지 않음";
           {topics.map((topic) => <span class="topic-chip">{topic}</span>)}
         </div>
       )}
-      {showVerified && <p class="verified">확인 {verified}</p>}
     </div>
   </a>
 </article>
