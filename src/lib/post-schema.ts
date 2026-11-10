@@ -99,6 +99,17 @@ export const restaurantSchema = z
   })
   .strict();
 
+export const figureSchema = z
+  .object({
+    section: z.enum(["summary", "transport", "parking", "route", "caution"]),
+    src: z.string().regex(/^\/images\/posts\/[^/]+\.(webp|png|jpg)$/, "이미지는 /images/posts/ 한 폴더에 둡니다"),
+    alt: z.string().min(8),
+    caption: nullableText,
+    width: z.number().int().positive(),
+    height: z.number().int().positive(),
+  })
+  .strict();
+
 export const routeMapSchema = z
   .object({
     src: z.string().regex(/^\//, "이미지 경로는 /로 시작").nullable(),
@@ -159,6 +170,9 @@ export const postSchema = z
     related_slugs: z.array(z.string()),
     hero_image: z.string().regex(/^\//).nullable(),
     hero_alt: nullableText,
+    figures: z.array(figureSchema).optional(),
+    /** story: 본문(MDX)이 섹션과 이미지를 직접 배치합니다. 표준 정보 블록은 숨깁니다. */
+    body_layout: z.enum(["standard", "story"]).optional(),
     author: z.string().min(1).optional(),
   })
   .strict()
@@ -226,3 +240,4 @@ export type PostFrontmatter = z.infer<typeof postSchema>;
 export type ParkingLot = z.infer<typeof parkingLotSchema>;
 export type Restaurant = z.infer<typeof restaurantSchema>;
 export type TransportLeg = z.infer<typeof transportLegSchema>;
+export type PostFigure = z.infer<typeof figureSchema>;
