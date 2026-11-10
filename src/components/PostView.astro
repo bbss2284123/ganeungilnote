@@ -1,0 +1,120 @@
+---
+import Base from "../layouts/Base.astro";
+import Sidebar from "./Sidebar.astro";
+import AdSlot from "./mdx/AdSlot.astro";
+import SummaryTable from "./post/SummaryTable.astro";
+import ParkingTable from "./post/ParkingTable.astro";
+import TransportGuide from "./post/TransportGuide.astro";
+import RouteMap from "./post/RouteMap.astro";
+import RestaurantCards from "./post/RestaurantCards.astro";
+import Cautions from "./post/Cautions.astro";
+import SourcesBlock from "./post/SourcesBlock.astro";
+import { categoryById, siteConfig, absoluteUrl } from "../../site.config";
+import { authorName, categoryName, categoryPath, postPath, tagLabel, tagPath, type PostEntry } from "../lib/posts";
+import { formatVerified } from "../lib/display";
+
+interface Props {
+  post: PostEntry;
+  // Astro가 render()로 넘기는 MDX 컴포넌트
+  Content: any;
+  related: PostEntry[];
+  published: PostEntry[];
+  prev?: PostEntry;
+  next?: PostEntry;
+}
+const { post, Content, related, published, prev, next } = Astro.props;
+const data = post.data;
+const category = categoryById(data.category);
+const verified = formatVerified(data.verified_at);
+const noindex = data.draft || data.sample;
+const anchors = [
+  ["#summary", "한눈에"],
+  ["#transport", "찾아가는 법"],
+  ["#parking", "주차장"],
+  ["#route", "동선"],
+  ["#food", "맛집"],
+  ["#caution", "방문 전 주의"],
+  ["#sources", "출처"],
+  ["#related", "관련 글"],
+];
+const jsonLd = noindex ? [] : [{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: data.title,
+  description: data.description,
+  datePublished: data.published_at ?? data.date,
+  dateModified: data.updated,
+  inLanguage: "ko",
+  author: { "@type": "Organization", name: authorName(post) },
+  publisher: { "@type": "Organization", name: siteConfig.name, url: siteConfig.url },
+  mainEntityOfPage: absoluteUrl(postPath(post.id)),
+}];
+---
+<Base
+  title={data.title}
+  description={data.description}
+  path={noindex ? `/draft/${post.id}/` : postPath(post.id)}
+  type="article"
+  current={data.category}
+  noindex={noindex}
+  published={data.published_at ?? undefined}
+  modified={data.updated}
+  jsonLd={jsonLd}
+>
+  <main id="content" class="wrap">
+    <div class="home-grid">
+      <article class="main-col article" data-pagefind-body={noindex ? undefined : true}>
+        {(data.sample || data.draft) && (
+          <p class="sample-banner">예시·미검증 · 발행되지 않은 초안. 요금·시간·거리·평점을 사실로 읽지 마세요.</p>
+        )}
+        <header class="article-head">
+          <p class="kicker">
+            <a href={categoryPath(data.category)}>{categoryName(data.category)}</a>
+            {data.region ? ` · ${data.region}` : ""}
+          </p>
+          <h1>{data.title}</h1>
+          <p class="caption">확인일 {verified} · {authorName(post)}</p>
+          <div class="chip-row">
+            {data.tags.map((tag) => <a class="chip" href={tagPath(tag)}>{tagLabel(tag)}</a>)}
+          </div>
+        </header>
+        <div class="lede">
+          {data.lede.map((line) => <p>{line}</p>)}
+        </div>
+        <nav class="anchors" aria-label="본문 바로가기">
+          {anchors.map(([href, label]) => <a href={href}>{label}</a>)}
+        </nav>
+        <AdSlot position="after-intro" />
+        <div class="prose">
+          <Content />
+        </div>
+        <SummaryTable summary={data.summary} verified={verified} />
+        <TransportGuide car={data.transport.car} walk={data.transport.walk} rail={data.transport.rail} />
+        <ParkingTable lots={data.parking_lots} />
+        <RouteMap map={data.route_map} sample={data.sample} />
+        <RestaurantCards restaurants={data.restaurants} />
+        <Cautions items={data.cautions} />
+        <AdSlot position="end" />
+        <SourcesBlock sources={data.sources} verified={verified} />
+        <section id="related" aria-labelledby="related-title">
+          <h2 id="related-title">관련 글</h2>
+          {related.length === 0 ? (
+            <p class="unknown">같은 지역·분류의 발행 글이 아직 없습니다.</p>
+          ) : (
+            <div class="related">
+              {related.map((item) => <a href={postPath(item.id)}>{item.data.title}</a>)}
+            </div>
+          )}
+          {(prev || next) && (
+            <p>
+              {prev && <a href={postPath(prev.id)}>이전 {prev.data.title}</a>}
+              {next && <a href={postPath(next.id)}>다음 {next.data.title}</a>}
+            </p>
+          )}
+        </section>
+        {category && <p class="caption">{category.description}</p>}
+      </article>
+      <Sidebar posts={published} />
+    </div>
+  </main>
+</Base>

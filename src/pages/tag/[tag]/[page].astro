@@ -1,0 +1,40 @@
+---
+import Base from "../../../layouts/Base.astro";
+import Shell from "../../../components/Shell.astro";
+import Listing from "../../../components/Listing.astro";
+import { siteConfig, tagById } from "../../../../site.config";
+import { allPublished, pageSlice, type PostEntry } from "../../../lib/posts";
+
+export async function getStaticPaths() {
+  const posts = await allPublished();
+  const paths: { params: { tag: string; page: string }; props: { matched: PostEntry[] } }[] = [];
+  for (const tag of siteConfig.tags) {
+    const matched = posts.filter((post) => post.data.tags.includes(tag.id));
+    const { pages } = pageSlice(matched, 1);
+    for (let page = 2; page <= pages; page += 1) {
+      paths.push({ params: { tag: tag.id, page: String(page) }, props: { matched } });
+    }
+  }
+  return paths;
+}
+const { tag, page } = Astro.params;
+const { matched } = Astro.props as { matched: PostEntry[] };
+const meta = tagById(tag ?? "");
+const current = Number(page);
+const { slice, pages } = pageSlice(matched, current);
+const published = await allPublished();
+---
+<Base title={`${meta?.label ?? "태그"} ${current}`} description={meta?.description ?? siteConfig.description} path={`/tag/${tag}/${current}/`}>
+  <Shell posts={published}>
+    <Listing
+      kicker="태그"
+      title={meta?.label ?? "태그"}
+      description={`${current}페이지`}
+      posts={slice}
+      page={current}
+      pages={pages}
+      base={`/tag/${tag}/`}
+      empty="이 태그의 발행 글이 아직 없습니다."
+    />
+  </Shell>
+</Base>

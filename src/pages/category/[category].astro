@@ -1,0 +1,42 @@
+---
+import Base from "../../layouts/Base.astro";
+import Shell from "../../components/Shell.astro";
+import Listing from "../../components/Listing.astro";
+import { siteConfig, categoryById, absoluteUrl } from "../../../site.config";
+import { allPublished, pageSlice, type PostEntry } from "../../lib/posts";
+
+export async function getStaticPaths() {
+  const posts = await allPublished();
+  return siteConfig.categories.map((category) => ({
+    params: { category: category.id },
+    props: { matched: posts.filter((post) => post.data.category === category.id) },
+  }));
+}
+const { category } = Astro.params;
+const { matched } = Astro.props as { matched: PostEntry[] };
+const meta = categoryById(category ?? "");
+const { slice, pages } = pageSlice(matched, 1);
+const published = await allPublished();
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: meta?.name,
+  description: meta?.description,
+  url: absoluteUrl(`/category/${category}/`),
+};
+---
+<Base title={meta?.name ?? "분류"} description={meta?.description ?? siteConfig.description} path={`/category/${category}/`} current={category} jsonLd={[jsonLd]}>
+  <Shell posts={published}>
+    <Listing
+      kicker="카테고리"
+      title={meta?.name ?? "분류"}
+      description={meta?.description ?? ""}
+      icon={meta?.icon}
+      posts={slice}
+      page={1}
+      pages={pages}
+      base={`/category/${category}/`}
+      empty="이 분류의 발행 글이 아직 없습니다."
+    />
+  </Shell>
+</Base>

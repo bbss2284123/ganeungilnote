@@ -1,0 +1,63 @@
+---
+import { displayFact, formatVerified } from "../../lib/display";
+import type { ParkingLot } from "../../lib/post-schema";
+
+interface Props { lots: ParkingLot[]; }
+const { lots } = Astro.props;
+const lotClass = (label: string) => (label === "P2" ? "lot p2" : label === "P3" ? "lot p3" : "lot");
+---
+<section id="parking" aria-labelledby="parking-title">
+  <h2 id="parking-title">주차장 비교</h2>
+  {lots.length === 0 ? (
+    <p class="unknown">확인되지 않음</p>
+  ) : (
+    <div class="table-scroll">
+      <table class="parking-table">
+        <thead>
+          <tr>
+            <th>주차장</th>
+            <th>대상지까지 도보</th>
+            <th>요금</th>
+            <th>운영시간</th>
+            <th>특징</th>
+            <th>마지막 확인</th>
+          </tr>
+        </thead>
+        <tbody>
+          {lots.map((lot) => {
+            const hours = [lot.operating_days, lot.open_hours].filter(Boolean).join(" · ");
+            return (
+              <tr>
+                <td data-label="주차장">
+                  <span class={lotClass(lot.label)}>{lot.label}</span>
+                  <div>{displayFact(lot.parking_name)}</div>
+                </td>
+                <td data-label="대상지까지 도보">{displayFact(lot.walking_text)}</td>
+                <td data-label="요금">{displayFact(lot.fee_text)}</td>
+                <td data-label="운영시간">{displayFact(hours || null)}</td>
+                <td data-label="특징">{displayFact(lot.feature)}</td>
+                <td data-label="마지막 확인">{formatVerified(lot.verified_at)}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  )}
+  {lots.map((lot) => {
+    const details = [
+      ["주소", lot.road_address],
+      ["진입", lot.entrance_note],
+      ["수용", lot.capacity],
+      ["제한", lot.restrictions],
+    ].filter((row) => row[1]);
+    if (!details.length && !lot.source_url) return null;
+    return (
+      <p>
+        <strong>{lot.label}</strong>
+        {details.map(([label, value]) => <span> · {label} {value}</span>)}
+        {lot.source_url && <> · <a href={lot.source_url} rel="noopener noreferrer">요금 출처</a></>}
+      </p>
+    );
+  })}
+</section>

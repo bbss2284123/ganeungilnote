@@ -1,0 +1,12 @@
+---
+import Base from "../layouts/Base.astro";
+import { siteConfig } from "../../site.config";
+---
+<Base title="문의" description="가는길노트 문의" path="/contact/">
+  <main id="content" class="wrap page-narrow" data-pagefind-body>
+    <h1>문의</h1>
+    <p>요금, 휴무, 노선, 주소가 공식 자료와 다르면 출처 주소를 함께 보내 주세요.</p>
+    <p><a href={`mailto:${siteConfig.contactEmail}?subject=${encodeURIComponent("가는길노트 문의")}`}>{siteConfig.contactEmail}</a></p>
+    <p>회원 가입, 댓글, 뉴스레터는 받지 않습니다. 보낸 메일은 답장과 내용 정정에만 씁니다.</p>
+  </main>
+</Base>

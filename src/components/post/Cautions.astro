@@ -1,0 +1,14 @@
+---
+interface Props { items: string[]; }
+const { items } = Astro.props;
+---
+<section id="caution" aria-labelledby="caution-title">
+  <h2 id="caution-title">방문 전 주의</h2>
+  {items.length === 0 ? (
+    <p class="unknown">확인되지 않음</p>
+  ) : (
+    <ul class="caution">
+      {items.map((item) => <li>{item}</li>)}
+    </ul>
+  )}
+</section>

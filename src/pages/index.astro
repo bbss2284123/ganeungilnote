@@ -1,0 +1,76 @@
+---
+import Base from "../layouts/Base.astro";
+import Shell from "../components/Shell.astro";
+import Card from "../components/Card.astro";
+import { siteConfig, absoluteUrl } from "../../site.config";
+import { allPublished, cardExcerpt, postPath } from "../lib/posts";
+
+const posts = await allPublished();
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: siteConfig.name,
+    url: siteConfig.url,
+    description: siteConfig.description,
+    inLanguage: "ko",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${siteConfig.url}/search/?q={search_term_string}`,
+      "query-input": "required name=search_term_string",
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: siteConfig.name,
+    url: siteConfig.url,
+    logo: absoluteUrl("/android-chrome-512x512.png"),
+  },
+];
+---
+<Base title={siteConfig.name} description={siteConfig.description} path="/" ogImage="/brand/og-default.png" jsonLd={jsonLd} current="index">
+  <Shell posts={posts}>
+    <div class="section-head">
+      <h1>최신 글</h1>
+      <a href="/archive/">전체 글</a>
+    </div>
+    {posts.length === 0 ? (
+      <>
+        <div class="empty-board">
+          <strong>아직 발행된 글이 없습니다.</strong>
+          <span>{siteConfig.slogan} 공식 공고와 요금표, 시간표를 확인한 글만 올립니다. 확인하지 못한 요금·운영시간·평점은 적지 않습니다.</span>
+        </div>
+        <div class="cat-grid">
+          {siteConfig.categories.map((category) => (
+            <a class="cat-card" href={`/category/${category.id}/`}>
+              <img src={`/icons/${category.icon}.svg`} alt="" width="56" height="56" />
+              <span>
+                <strong>{category.name}</strong>
+                <span>{category.description}</span>
+              </span>
+            </a>
+          ))}
+        </div>
+        {import.meta.env.DEV && <p class="caption">개발 서버에서만 초안 화면을 볼 수 있습니다. <a href="/draft/sample-place-guide/">초안 열기</a></p>}
+      </>
+    ) : (
+      <div class="cards">
+        {posts.map((post, index) => (
+          <Card
+            href={postPath(post.id)}
+            title={post.data.title}
+            excerpt={cardExcerpt(post.data.description)}
+            category={post.data.category}
+            region={post.data.region}
+            topics={post.data.preview_topics}
+            verifiedAt={post.data.verified_at}
+            image={post.data.hero_image}
+            imageAlt={post.data.hero_alt ?? ""}
+            eager={index < 3}
+          />
+        ))}
+      </div>
+    )}
+  </Shell>
+</Base>

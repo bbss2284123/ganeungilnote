@@ -1,0 +1,66 @@
+---
+import { siteConfig } from "../../site.config";
+import { categoryPath, postPath, recentPosts, regionPath, tagPath, type PostEntry } from "../lib/posts";
+
+interface Props {
+  posts: PostEntry[];
+}
+const { posts } = Astro.props;
+const recent = recentPosts(posts, 5);
+const counts = new Map(siteConfig.categories.map((category) => [category.id, posts.filter((post) => post.data.category === category.id).length]));
+---
+<aside class="side" data-pagefind-ignore>
+  <form class="side-search" action="/search/" method="get">
+    <input type="search" name="q" placeholder="블로그 내에서 검색하기" aria-label="블로그 검색" />
+    <button type="submit" aria-label="검색">
+      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="#fff" stroke-width="2"/><path d="M16 16l5 5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </form>
+  <section class="panel">
+    <h2>최근 수정</h2>
+    {recent.length === 0 ? (
+      <p class="quiet">발행된 글이 생기면 최근에 고친 글이 여기 모입니다.</p>
+    ) : (
+      <div class="side-links">
+        {recent.map((post) => (
+          <a href={postPath(post.id)}>{post.data.title}</a>
+        ))}
+      </div>
+    )}
+  </section>
+  <section class="panel">
+    <h2><img src="/icons/region.svg" alt="" width="22" height="22" /> 카테고리</h2>
+    <nav class="side-links" aria-label="카테고리">
+      {siteConfig.categories.map((category) => {
+        const count = counts.get(category.id) ?? 0;
+        return (
+          <a href={categoryPath(category.id)}>
+            <span>{category.name}</span>
+            {count > 0 && <span class="count">{count}</span>}
+          </a>
+        );
+      })}
+    </nav>
+  </section>
+  <section class="panel">
+    <h2>지역 바로가기</h2>
+    <nav class="region-cloud" aria-label="지역">
+      {siteConfig.regions.map((region) => (
+        <a href={regionPath(region.id)}>{region.label}</a>
+      ))}
+    </nav>
+  </section>
+  <section class="panel">
+    <h2>태그</h2>
+    <nav class="tag-cloud" aria-label="태그">
+      {siteConfig.tags.map((tag) => (
+        <a href={tagPath(tag.id)}>{tag.label}</a>
+      ))}
+    </nav>
+  </section>
+  <section class="panel">
+    <h2>확인한 정보만</h2>
+    <p class="quiet">요금, 운영시간, 휴무, 평점, 도보 시간은 출처가 있을 때만 적습니다. 없는 값은 확인되지 않음입니다.</p>
+    <p class="quiet"><a href="/sources/">출처·정정 안내</a></p>
+  </section>
+</aside>

@@ -1,0 +1,49 @@
+---
+import { categoryById } from "../../site.config";
+import { categoryName, tagLabel } from "../lib/posts";
+import { formatVerified } from "../lib/display";
+
+interface Props {
+  href: string;
+  title: string;
+  excerpt: string;
+  category: string;
+  region?: string | null;
+  topics?: string[];
+  verifiedAt?: string | null;
+  image?: string | null;
+  imageAlt?: string;
+  eager?: boolean;
+}
+const { href, title, excerpt, category, region, topics = [], verifiedAt = null, image, imageAlt = "", eager = false } = Astro.props;
+const meta = categoryById(category);
+const verified = formatVerified(verifiedAt);
+const showVerified = verified !== "확인되지 않음";
+---
+<article class="card" data-cat={category}>
+  <a class="card-link" href={href}>
+    <div class="thumb">
+      {image ? (
+        <img src={image} alt={imageAlt} width="1200" height="675" loading={eager ? "eager" : "lazy"} />
+      ) : (
+        <div class="thumb-fallback" style={`background:${meta?.soft ?? "#F5F7FA"}`}>
+          <img src={`/icons/${meta?.icon ?? "region"}.svg`} alt="" width="64" height="64" />
+        </div>
+      )}
+    </div>
+    <div class="card-body">
+      <div class="chip-row">
+        <span class="chip">{categoryName(category)}</span>
+        {region && <span class="chip alt">{region}</span>}
+      </div>
+      <h2 class="card-title">{title}</h2>
+      <p class="card-excerpt">{excerpt}</p>
+      {topics.length > 0 && (
+        <div class="chip-row">
+          {topics.map((topic) => <span class="topic-chip">{topic}</span>)}
+        </div>
+      )}
+      {showVerified && <p class="verified">확인 {verified}</p>}
+    </div>
+  </a>
+</article>

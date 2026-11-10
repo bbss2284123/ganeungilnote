@@ -1,0 +1,38 @@
+---
+import { displayFact } from "../../lib/display";
+import type { TransportLeg } from "../../lib/post-schema";
+
+interface Props {
+  car: TransportLeg;
+  walk: TransportLeg;
+  rail: TransportLeg;
+}
+const { car, walk, rail } = Astro.props;
+const legs = [
+  { id: "car", title: "자차", data: car },
+  { id: "walk", title: "뚜벅이", data: walk },
+  { id: "rail", title: "기차·버스", data: rail },
+];
+---
+<section id="transport" aria-labelledby="transport-title">
+  <h2 id="transport-title">교통 · 찾아가는 법</h2>
+  <div class="tabs">
+    <input class="tab-input" type="radio" name="transport-tab" id="tab-car" checked />
+    <input class="tab-input" type="radio" name="transport-tab" id="tab-walk" />
+    <input class="tab-input" type="radio" name="transport-tab" id="tab-rail" />
+    <div class="tab-bar" role="tablist" aria-label="이동 수단">
+      {legs.map((leg) => <label for={`tab-${leg.id}`}>{leg.title}</label>)}
+    </div>
+    {legs.map((leg) => (
+      <div class={`tab-panel panel-${leg.id}`}>
+        <p class:list={{ unknown: !leg.data.summary }}>{displayFact(leg.data.summary)}</p>
+        {leg.data.steps.length > 0 && (
+          <ol class="steps">
+            {leg.data.steps.map((step) => <li>{step}</li>)}
+          </ol>
+        )}
+        {leg.data.note && <p>{leg.data.note}</p>}
+      </div>
+    ))}
+  </div>
+</section>

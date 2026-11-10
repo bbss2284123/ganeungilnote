@@ -1,0 +1,15 @@
+---
+import Base from "../layouts/Base.astro";
+import { siteConfig } from "../../site.config";
+---
+<Base title="이용약관" description="가는길노트 이용약관" path="/terms/">
+  <main id="content" class="wrap page-narrow" data-pagefind-body>
+    <h1>이용약관</h1>
+    <p>시행일 {siteConfig.legalUpdated}.</p>
+    <p>가는길노트는 국내 여행의 운영, 휴무, 교통, 주차 정보를 정리하는 블로그입니다. 여행 예약, 티켓 판매, 주차 예약을 대신하지 않습니다.</p>
+    <p>요금, 시간표, 휴무, 행사 일정은 바뀝니다. 방문 전에는 글에 적힌 공식 출처를 다시 확인하세요. 빈 칸은 확인되지 않음이며, 그 상태를 단정으로 바꾸지 않습니다.</p>
+    <p>글의 표현과 구성에 대한 권리는 블로그에 있습니다. 운영 기관의 공고, 요금표, 사진에 대한 권리는 각 권리자에게 있습니다. 다른 서비스의 리뷰 문장과 사진을 허가 없이 옮기지 않습니다.</p>
+    <p>이 사이트의 정보를 보고 한 이동, 주차, 지출에 대해 블로그가 결과를 보장하지 않습니다.</p>
+    <p>문의는 {siteConfig.contactEmail} 입니다.</p>
+  </main>
+</Base>

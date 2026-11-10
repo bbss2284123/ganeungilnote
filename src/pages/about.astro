@@ -1,0 +1,22 @@
+---
+import Base from "../layouts/Base.astro";
+import { siteConfig } from "../../site.config";
+---
+<Base title="소개" description={siteConfig.description} path="/about/">
+  <main id="content" class="wrap page-narrow" data-pagefind-body>
+    <h1>소개</h1>
+    <p>{siteConfig.slogan}</p>
+    <p>가는길노트는 축제, 지역, 교통, 주차, 휴무, 맛집 정보를 조사해 뚜벅이·자차·기차 여행자가 가기 전에 확인하도록 정리하는 블로그입니다. 예약 사이트나 관광 홍보 페이지가 아닙니다.</p>
+    <h2>다루는 분류</h2>
+    <ul>
+      {siteConfig.categories.map((category) => <li><strong>{category.name}.</strong> {category.description}</li>)}
+    </ul>
+    <h2>적지 않는 것</h2>
+    <ul>
+      <li>확인하지 못한 요금, 운영시간, 휴무, 평점, 도보 시간</li>
+      <li>방문하지 않은 글을 방문 후기처럼 쓰는 표현</li>
+      <li>실시간 만차, 열차 시각, 날씨처럼 자주 바뀌는 숫자의 복제</li>
+    </ul>
+    <p>잘못된 곳은 <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a> 로 알려 주세요. 출처를 다시 보고 고칩니다.</p>
+  </main>
+</Base>

@@ -1,0 +1,48 @@
+---
+import { displayFact } from "../../lib/display";
+import type { Restaurant } from "../../lib/post-schema";
+
+interface Props { restaurants: Restaurant[]; }
+const { restaurants } = Astro.props;
+const fields: { key: keyof Restaurant; label: string }[] = [
+  { key: "kind", label: "종류" },
+  { key: "address", label: "주소" },
+  { key: "access", label: "동선에서의 이동" },
+  { key: "rating_text", label: "평점" },
+  { key: "review_count_text", label: "리뷰 수" },
+  { key: "review_scope", label: "리뷰 범위" },
+  { key: "menu", label: "메뉴·가격" },
+  { key: "hours", label: "영업·휴무" },
+  { key: "parking", label: "주차" },
+];
+---
+<section id="food" aria-labelledby="food-title">
+  <h2 id="food-title">주변 식당</h2>
+  {restaurants.length === 0 ? (
+    <p class="unknown">확인되지 않음</p>
+  ) : (
+    <div class="restaurants">
+      {restaurants.map((place) => (
+        <article class="restaurant">
+          <h3>{place.name}</h3>
+          <dl>
+            {fields.map((field) => {
+              const text = displayFact(place[field.key] as string | null);
+              return (
+                <div>
+                  <dt>{field.label}</dt>
+                  <dd class:list={{ unknown: text === "확인되지 않음" }}>{text}</dd>
+                </div>
+              );
+            })}
+          </dl>
+          {place.source_url ? (
+            <p><a href={place.source_url} rel="noopener noreferrer">{place.source_label || "출처"}</a></p>
+          ) : (
+            <p>출처 <span class="unknown">확인되지 않음</span></p>
+          )}
+        </article>
+      ))}
+    </div>
+  )}
+</section>

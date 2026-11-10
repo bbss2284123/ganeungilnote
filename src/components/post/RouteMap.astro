@@ -1,0 +1,35 @@
+---
+import type { PostFrontmatter } from "../../lib/post-schema";
+
+interface Props { map: PostFrontmatter["route_map"]; sample?: boolean; }
+const { map, sample = false } = Astro.props;
+---
+<section id="route" aria-labelledby="route-title">
+  <h2 id="route-title">동선 지도</h2>
+  {!map ? (
+    <p class="unknown">확인되지 않음</p>
+  ) : (
+    <figure class="route-fig">
+      {map.src ? (
+        <img src={map.src} alt={map.alt} width="1200" height="900" />
+      ) : (
+        <div class="schematic" role="img" aria-label={map.alt}>
+          {sample && <p class="sample-flag">예시·미검증</p>}
+          <p class="schematic-flag">개념도·축척 없음</p>
+          <div class="node">예시역<small>출발</small></div>
+          <div class="node">예시마당<small>방문지</small></div>
+          <div class="node">예시식당<small>식당</small></div>
+          <div class="node p1">P1<small>주차장</small></div>
+          <div class="node p2">P2<small>주차장</small></div>
+          <div class="node p3">P3<small>주차장</small></div>
+        </div>
+      )}
+      {map.src && map.schematic && <p class="schematic-flag">개념도·축척 없음</p>}
+      <figcaption>
+        {map.schematic ? "개념도·축척 없음. " : ""}
+        {map.verified ? "경로를 확인한 그림입니다. " : "거리와 소요 시간은 이 그림으로 읽지 않습니다. "}
+        {map.caption ?? "확인되지 않음"}
+      </figcaption>
+    </figure>
+  )}
+</section>

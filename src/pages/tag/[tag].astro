@@ -1,0 +1,34 @@
+---
+import Base from "../../layouts/Base.astro";
+import Shell from "../../components/Shell.astro";
+import Listing from "../../components/Listing.astro";
+import { siteConfig, tagById } from "../../../site.config";
+import { allPublished, pageSlice, type PostEntry } from "../../lib/posts";
+
+export async function getStaticPaths() {
+  const posts = await allPublished();
+  return siteConfig.tags.map((tag) => ({
+    params: { tag: tag.id },
+    props: { matched: posts.filter((post) => post.data.tags.includes(tag.id)) },
+  }));
+}
+const { tag } = Astro.params;
+const { matched } = Astro.props as { matched: PostEntry[] };
+const meta = tagById(tag ?? "");
+const { slice, pages } = pageSlice(matched, 1);
+const published = await allPublished();
+---
+<Base title={meta?.label ?? "태그"} description={meta?.description ?? siteConfig.description} path={`/tag/${tag}/`} jsonLd={[]}>
+  <Shell posts={published}>
+    <Listing
+      kicker="태그"
+      title={meta?.label ?? "태그"}
+      description={meta?.description ?? ""}
+      posts={slice}
+      page={1}
+      pages={pages}
+      base={`/tag/${tag}/`}
+      empty="이 태그의 발행 글이 아직 없습니다."
+    />
+  </Shell>
+</Base>

@@ -1,0 +1,35 @@
+---
+import Base from "../../layouts/Base.astro";
+import Shell from "../../components/Shell.astro";
+import Listing from "../../components/Listing.astro";
+import { siteConfig, regionById } from "../../../site.config";
+import { allPublished, pageSlice, type PostEntry } from "../../lib/posts";
+
+export async function getStaticPaths() {
+  const posts = await allPublished();
+  return siteConfig.regions.map((region) => ({
+    params: { region: region.id },
+    props: { matched: posts.filter((post) => post.data.region_id === region.id) },
+  }));
+}
+const { region } = Astro.params;
+const { matched } = Astro.props as { matched: PostEntry[] };
+const meta = regionById(region ?? "");
+const { slice, pages } = pageSlice(matched, 1);
+const published = await allPublished();
+---
+<Base title={meta?.label ?? "지역"} description={meta?.description ?? siteConfig.description} path={`/region/${region}/`}>
+  <Shell posts={published}>
+    <Listing
+      kicker="지역"
+      title={meta?.label ?? "지역"}
+      description={meta?.description ?? ""}
+      icon="region"
+      posts={slice}
+      page={1}
+      pages={pages}
+      base={`/region/${region}/`}
+      empty="이 지역의 발행 글이 아직 없습니다."
+    />
+  </Shell>
+</Base>

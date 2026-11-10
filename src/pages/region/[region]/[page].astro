@@ -1,0 +1,41 @@
+---
+import Base from "../../../layouts/Base.astro";
+import Shell from "../../../components/Shell.astro";
+import Listing from "../../../components/Listing.astro";
+import { siteConfig, regionById } from "../../../../site.config";
+import { allPublished, pageSlice, type PostEntry } from "../../../lib/posts";
+
+export async function getStaticPaths() {
+  const posts = await allPublished();
+  const paths: { params: { region: string; page: string }; props: { matched: PostEntry[] } }[] = [];
+  for (const region of siteConfig.regions) {
+    const matched = posts.filter((post) => post.data.region_id === region.id);
+    const { pages } = pageSlice(matched, 1);
+    for (let page = 2; page <= pages; page += 1) {
+      paths.push({ params: { region: region.id, page: String(page) }, props: { matched } });
+    }
+  }
+  return paths;
+}
+const { region, page } = Astro.params;
+const { matched } = Astro.props as { matched: PostEntry[] };
+const meta = regionById(region ?? "");
+const current = Number(page);
+const { slice, pages } = pageSlice(matched, current);
+const published = await allPublished();
+---
+<Base title={`${meta?.label ?? "지역"} ${current}`} description={meta?.description ?? siteConfig.description} path={`/region/${region}/${current}/`}>
+  <Shell posts={published}>
+    <Listing
+      kicker="지역"
+      title={meta?.label ?? "지역"}
+      description={`${current}페이지`}
+      icon="region"
+      posts={slice}
+      page={current}
+      pages={pages}
+      base={`/region/${region}/`}
+      empty="이 지역의 발행 글이 아직 없습니다."
+    />
+  </Shell>
+</Base>

@@ -1,0 +1,52 @@
+---
+import Card from "./Card.astro";
+import Pager from "./Pager.astro";
+import { cardExcerpt, postPath, type PostEntry } from "../lib/posts";
+
+interface Props {
+  kicker?: string;
+  title: string;
+  description: string;
+  icon?: string;
+  posts: PostEntry[];
+  page?: number;
+  pages?: number;
+  base?: string;
+  empty: string;
+}
+const { kicker, title, description, icon, posts, page = 1, pages = 1, base = "/", empty } = Astro.props;
+---
+<header class="page-head">
+  <div class="icon-title">
+    {icon && <img src={`/icons/${icon}.svg`} alt="" width="56" height="56" />}
+    <div>
+      {kicker && <p class="kicker">{kicker}</p>}
+      <h1>{title}</h1>
+    </div>
+  </div>
+  <p>{description}</p>
+</header>
+{posts.length === 0 ? (
+  <div class="empty-board">
+    <strong>{empty}</strong>
+    <span>확인이 끝난 글만 이 목록에 올라옵니다.</span>
+  </div>
+) : (
+  <div class="cards">
+    {posts.map((post, index) => (
+      <Card
+        href={postPath(post.id)}
+        title={post.data.title}
+        excerpt={cardExcerpt(post.data.description)}
+        category={post.data.category}
+        region={post.data.region}
+        topics={post.data.preview_topics}
+        verifiedAt={post.data.verified_at}
+        image={post.data.hero_image}
+        imageAlt={post.data.hero_alt ?? ""}
+        eager={index === 0}
+      />
+    ))}
+  </div>
+)}
+<Pager base={base} current={page} pages={pages} />

@@ -1,0 +1,32 @@
+---
+import Base from "../../layouts/Base.astro";
+import Shell from "../../components/Shell.astro";
+import Listing from "../../components/Listing.astro";
+import { siteConfig } from "../../../site.config";
+import { allPublished, pageSlice } from "../../lib/posts";
+
+export async function getStaticPaths() {
+  const posts = await allPublished();
+  const { pages } = pageSlice(posts, 1);
+  return Array.from({ length: Math.max(0, pages - 1) }, (_, index) => ({
+    params: { page: String(index + 2) },
+  }));
+}
+const current = Number(Astro.params.page);
+const published = await allPublished();
+const { slice, pages } = pageSlice(published, current);
+---
+<Base title={`전체 글 ${current}`} description={`${siteConfig.name}에 발행된 글 목록`} path={`/archive/${current}/`}>
+  <Shell posts={published}>
+    <Listing
+      kicker={siteConfig.name}
+      title="전체 글"
+      description={`${current}페이지`}
+      posts={slice}
+      page={current}
+      pages={pages}
+      base="/archive/"
+      empty="발행된 글이 아직 없습니다."
+    />
+  </Shell>
+</Base>

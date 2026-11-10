@@ -1,0 +1,24 @@
+---
+import Base from "../layouts/Base.astro";
+import { siteConfig } from "../../site.config";
+---
+<Base title="출처·정정 안내" description="가는길노트의 출처, 확인일, 정정 요청" path="/sources/">
+  <main id="content" class="wrap page-narrow" data-pagefind-body>
+    <h1>출처·정정 안내</h1>
+    <p>시행일 {siteConfig.legalUpdated}. 시각은 Asia/Seoul 기준입니다.</p>
+    <h2>우선하는 자료</h2>
+    <ol>
+      <li>주최·운영 기관의 공고, 시간표, 요금표</li>
+      <li>공공데이터와 관광 API. 갱신일과 제공 범위를 같이 봅니다.</li>
+      <li>교차 확인이 되는 보도와 관광 자료</li>
+      <li>블로그와 SNS는 주제 아이디어로만 보고, 사실로 단정하지 않습니다.</li>
+    </ol>
+    <h2>빈 값</h2>
+    <p>찾지 못한 항목은 확인되지 않음으로 둡니다. 비어 있다고 무료이거나, 쉬는 날이 없거나, 도보로 가깝다는 뜻이 아닙니다.</p>
+    <h2>정정</h2>
+    <p>글의 숫자나 휴무가 오래되었거나 잘못되었으면 <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a> 로 글 주소와 공식 출처를 보내 주세요. 확인한 뒤 고치고 확인일을 바꿉니다.</p>
+    <p>초안과 시안은 사이트 빌드에 넣지 않습니다. 화면에 예시라고 적힌 문장은 사실이 아닙니다.</p>
+    <h2>지도</h2>
+    <p>개념도에는 개념도·축척 없음을 적습니다. 실제 거리와 소요 시간은 지도 앱에서 다시 확인하는 것이 맞습니다.</p>
+  </main>
+</Base>

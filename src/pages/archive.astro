@@ -1,0 +1,24 @@
+---
+import Base from "../layouts/Base.astro";
+import Shell from "../components/Shell.astro";
+import Listing from "../components/Listing.astro";
+import { siteConfig } from "../../site.config";
+import { allPublished, pageSlice } from "../lib/posts";
+
+const published = await allPublished();
+const { slice, pages } = pageSlice(published, 1);
+---
+<Base title="전체 글" description={`${siteConfig.name}에 발행된 글 목록`} path="/archive/">
+  <Shell posts={published}>
+    <Listing
+      kicker={siteConfig.name}
+      title="전체 글"
+      description="발행된 글만 날짜의 역순으로 모읍니다."
+      posts={slice}
+      page={1}
+      pages={pages}
+      base="/archive/"
+      empty="발행된 글이 아직 없습니다."
+    />
+  </Shell>
+</Base>

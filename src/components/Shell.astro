@@ -1,0 +1,15 @@
+---
+import Sidebar from "./Sidebar.astro";
+import type { PostEntry } from "../lib/posts";
+
+interface Props { posts: PostEntry[]; }
+const { posts } = Astro.props;
+---
+<main id="content" class="wrap">
+  <div class="home-grid">
+    <div class="main-col" data-pagefind-body>
+      <slot />
+    </div>
+    <Sidebar posts={posts} />
+  </div>
+</main>

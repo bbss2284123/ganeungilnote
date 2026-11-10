@@ -1,0 +1,17 @@
+---
+interface Props {
+  base: string;
+  current: number;
+  pages: number;
+}
+const { base, current, pages } = Astro.props;
+const href = (page: number) => (page <= 1 ? base : `${base}${page}/`);
+---
+{pages > 1 && (
+  <nav class="pager" aria-label="페이지">
+    {Array.from({ length: pages }, (_, index) => {
+      const page = index + 1;
+      return page === current ? <span aria-current="page">{page}</span> : <a href={href(page)}>{page}</a>;
+    })}
+  </nav>
+)}
