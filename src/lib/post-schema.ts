@@ -174,6 +174,12 @@ export const postSchema = z
     /** story: 본문(MDX)이 섹션과 이미지를 직접 배치합니다. 표준 정보 블록은 숨깁니다. */
     body_layout: z.enum(["standard", "story"]).optional(),
     author: z.string().min(1).optional(),
+    /** story 본문의 바로가기. 없으면 기본 목록을 씁니다. */
+    story_anchors: z
+      .array(z.object({ href: z.string().regex(/^#[a-z0-9-]+$/), label: z.string().min(1) }).strict())
+      .optional(),
+    /** 자주 묻는 질문. 본문 아래에 보이고 FAQPage 구조화 데이터로도 나갑니다. */
+    faq: z.array(z.object({ q: z.string().min(4), a: z.string().min(4) }).strict()).optional(),
   })
   .strict()
   .superRefine((post, ctx) => {

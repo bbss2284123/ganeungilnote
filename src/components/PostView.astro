@@ -28,7 +28,8 @@ const category = categoryById(data.category);
 const noindex = data.draft || data.sample;
 const figures = data.figures ?? [];
 const story = data.body_layout === "story";
-const anchors = story ? [
+const faq = data.faq ?? [];
+const anchors = story && data.story_anchors ? data.story_anchors.map((item) => [item.href, item.label]) : story ? [
   ["#summary", "한눈에"],
   ["#hours", "점등 시간"],
   ["#transport", "가는 법"],
@@ -58,7 +59,15 @@ const jsonLd = noindex ? [] : [{
   author: { "@type": "Organization", name: authorName(post) },
   publisher: { "@type": "Organization", name: siteConfig.name, url: siteConfig.url },
   mainEntityOfPage: absoluteUrl(postPath(post.id)),
-}];
+}, ...(faq.length ? [{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+}] : [])];
 ---
 <Base
   title={data.title}
@@ -115,6 +124,17 @@ const jsonLd = noindex ? [] : [{
             {data.restaurants.length > 0 && <RestaurantCards restaurants={data.restaurants} />}
             <Cautions items={data.cautions}><Figures items={figures} section="caution" /></Cautions>
           </>
+        )}
+        {faq.length > 0 && (
+          <section id="faq" class="faq" aria-labelledby="faq-title">
+            <h2 id="faq-title">자주 묻는 질문</h2>
+            {faq.map((item) => (
+              <details>
+                <summary>{item.q}</summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </section>
         )}
         <AdSlot position="end" />
         <SourcesBlock sources={data.sources} />
