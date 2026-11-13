@@ -8,7 +8,9 @@ export async function GET(_context: APIContext) {
   const staticPages = ["/", "/about/", "/sources/", "/privacy/", "/terms/", "/contact/", "/archive/"];
   const urls = [
     ...staticPages.map((path) => ({ loc: absoluteUrl(path), lastmod: siteConfig.legalUpdated })),
-    ...siteConfig.categories.map((category) => ({ loc: absoluteUrl(`/category/${category.id}/`), lastmod: siteConfig.legalUpdated })),
+    ...siteConfig.categories
+      .filter((category) => !isThinListing(posts.filter((post) => post.data.category === category.id).length))
+      .map((category) => ({ loc: absoluteUrl(`/category/${category.id}/`), lastmod: siteConfig.legalUpdated })),
     ...siteConfig.tags
       .filter((tag) => !isThinListing(posts.filter((post) => post.data.tags.includes(tag.id)).length))
       .map((tag) => ({ loc: absoluteUrl(`/tag/${tag.id}/`), lastmod: siteConfig.legalUpdated })),

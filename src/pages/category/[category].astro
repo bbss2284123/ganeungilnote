@@ -4,6 +4,7 @@ import Shell from "../../components/Shell.astro";
 import Listing from "../../components/Listing.astro";
 import { siteConfig, categoryById, absoluteUrl } from "../../../site.config";
 import { allPublished, pageSlice, type PostEntry } from "../../lib/posts";
+import { isThinListing } from "../../lib/seo";
 
 export async function getStaticPaths() {
   const posts = await allPublished();
@@ -25,7 +26,7 @@ const jsonLd = {
   url: absoluteUrl(`/category/${category}/`),
 };
 ---
-<Base title={meta?.name ?? "분류"} description={meta?.description ?? siteConfig.description} path={`/category/${category}/`} current={category} jsonLd={[jsonLd]}>
+<Base title={meta?.name ?? "분류"} description={meta?.description ?? siteConfig.description} path={`/category/${category}/`} noindex={isThinListing(matched.length)} current={category} jsonLd={[jsonLd]}>
   <Shell posts={published}>
     <Listing
       kicker="카테고리"
