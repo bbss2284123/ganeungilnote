@@ -142,7 +142,7 @@ export const siteConfig = {
   cloudflareWebAnalyticsToken: "",
   verification: {
     google: "",
-    naver: "",
+    naver: "ae00138b2220e8eed2856edd791ed39fc2f277c3",
     bing: "",
   },
 } as const;
