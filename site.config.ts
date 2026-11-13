@@ -39,7 +39,7 @@ export const siteConfig = {
   legalUpdated: "2026-11-13",
   postsPerPage: 9,
   /** 한국 시간 기준 하루 발행 상한. */
-  maxPostsPerDay: 1,
+  maxPostsPerDay: 2,
   /** TODO: IndexNow 키. 비우면 키 파일을 만들지 않고 핑도 보내지 않습니다. */
   indexNowKey: "",
   author: {
