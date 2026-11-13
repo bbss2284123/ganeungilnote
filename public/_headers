@@ -6,3 +6,10 @@
 
 /icons/*
   Cache-Control: public, max-age=604800
+
+# pages.dev 기본 주소와 미리보기 주소는 검색엔진에 올리지 않습니다. 사용자 도메인(ganeungilnote.com)에는 적용되지 않습니다.
+https://ganeungilnote.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:preview.ganeungilnote.pages.dev/*
+  X-Robots-Tag: noindex

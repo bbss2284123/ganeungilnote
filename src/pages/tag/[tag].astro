@@ -4,6 +4,7 @@ import Shell from "../../components/Shell.astro";
 import Listing from "../../components/Listing.astro";
 import { siteConfig, tagById } from "../../../site.config";
 import { allPublished, pageSlice, type PostEntry } from "../../lib/posts";
+import { isThinListing } from "../../lib/seo";
 
 export async function getStaticPaths() {
   const posts = await allPublished();
@@ -18,7 +19,7 @@ const meta = tagById(tag ?? "");
 const { slice, pages } = pageSlice(matched, 1);
 const published = await allPublished();
 ---
-<Base title={meta?.label ?? "태그"} description={meta?.description ?? siteConfig.description} path={`/tag/${tag}/`} jsonLd={[]}>
+<Base title={meta?.label ?? "태그"} description={meta?.description ?? siteConfig.description} path={`/tag/${tag}/`} noindex={isThinListing(matched.length)} jsonLd={[]}>
   <Shell posts={published}>
     <Listing
       kicker="태그"

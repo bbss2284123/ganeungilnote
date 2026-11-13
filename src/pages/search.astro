@@ -2,7 +2,7 @@
 import Base from "../layouts/Base.astro";
 import { siteConfig } from "../../site.config";
 ---
-<Base title="검색" description={`${siteConfig.name} 글 검색`} path="/search/" current="search">
+<Base title="검색" description={`${siteConfig.name} 글 검색`} path="/search/" current="search" noindex>
   <main id="content" class="wrap page-narrow search-page" data-pagefind-body>
     <h1>검색</h1>
     <p>제목과 본문에서 찾습니다. 발행된 글과 안내 페이지만 색인에 들어갑니다.</p>
