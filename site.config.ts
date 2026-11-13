@@ -36,7 +36,7 @@ export const siteConfig = {
   lang: "ko",
   locale: "ko_KR",
   contactEmail: "baekhyun071500@gmail.com",
-  legalUpdated: "2026-11-10",
+  legalUpdated: "2026-11-13",
   postsPerPage: 9,
   /** 한국 시간 기준 하루 발행 상한. */
   maxPostsPerDay: 1,
