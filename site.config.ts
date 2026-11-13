@@ -35,7 +35,7 @@ export const siteConfig = {
     "축제, 지역, 교통, 주차, 휴무, 맛집 정보를 조사해 뚜벅이·자차·기차 여행자가 가기 전에 확인하도록 정리하는 블로그입니다.",
   lang: "ko",
   locale: "ko_KR",
-  contactEmail: "seedleaf11@naver.com",
+  contactEmail: "baekhyun071500@gmail.com",
   legalUpdated: "2026-11-10",
   postsPerPage: 9,
   /** 한국 시간 기준 하루 발행 상한. */

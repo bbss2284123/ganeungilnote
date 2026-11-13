@@ -46,7 +46,7 @@ GitHub Actions `Scheduled publish` 가 약 30분마다, 한국 시간 07:00–22
 | 칸 | 넣는 값 |
 | --- | --- |
 | `author.name` | 필명. 비어 있는 동안은 사이트 이름을 발행자로 둡니다. |
-| `contactEmail` | 문의 메일. 지금은 `seedleaf11@naver.com` |
+| `contactEmail` | 문의 메일. 지금은 `baekhyun071500@gmail.com` |
 | `adsense.publisherId` | AdSense 게시자 ID (`pub-` 로 시작) |
 | `adsense.slots.*` | 본문 슬롯 ID |
 | `ga4Id` | GA4 측정 ID (`G-`) |
