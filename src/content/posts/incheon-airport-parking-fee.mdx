@@ -1,8 +1,8 @@
 ---
 title: "인천공항 주차요금 단기·장기·예약주차장 비교와 할인 조건"
-description: "인천국제공항 단기·장기·예약주차장 요금(최초 10분 무료, 시간당·일 최대 요금)과 경차·저공해차·다자녀 감면 조건을 인천국제공항공사 공식 요금표로 정리했습니다. 2026년 11월 10일 확인."
+description: "인천공항 단기주차장 일 최대 24,000원, 장기·예약주차장 일 최대 9,000원 비교와 며칠 세우면 얼마인지, T1·T2 주차장 위치, 장기주차장 셔틀 간격, 예약·주차대행·하이패스·경차 할인 조건을 그림으로 정리했습니다."
 date: "2026-11-12"
-updated: "2026-11-12"
+updated: "2026-11-15"
 publishAt: "2026-11-12T09:00"
 draft: false
 category: "transit"
@@ -10,13 +10,12 @@ tags: ["car"]
 status: "approved"
 region: "인천 영종도"
 region_id: null
-verified_at: "2026-11-10"
+verified_at: "2026-11-15"
 published_at: null
 lede:
-  - "연말연시와 설 연휴에 인천공항까지 차를 가져가려는 분을 위한 요금 비교입니다."
-  - "하루 넘게 세우면 단기주차장 일 최대 24,000원, 장기·예약주차장 일 최대 9,000원으로 차이가 큽니다."
-  - "인천국제공항공사 주차요금 페이지를 2026년 11월 10일에 확인했습니다."
-preview_topics: ["주차요금", "장기주차", "할인"]
+  - "하루 넘게 세우면 단기주차장은 일 최대 24,000원, 장기·예약주차장은 일 최대 9,000원입니다. 3일이면 최대 45,000원 차이가 납니다."
+  - "T1·T2 모두 같은 요금표를 쓰고, 장기주차장에서는 무료 셔틀버스로 터미널까지 갑니다."
+preview_topics: ["주차요금", "장기주차", "셔틀", "할인"]
 sample: false
 place:
   place_id: "incheon-airport"
@@ -28,7 +27,7 @@ place:
   weekly_closed_days: []
   temporary_closure: null
   admission: null
-  official_url: "https://airport.kr/ap_ko/969/subview.do"
+  official_url: "https://www.airport.kr/ap_ko/969/subview.do"
 summary:
   location: "인천국제공항 제1·제2여객터미널 (인천광역시 영종구)"
   map_url: null
@@ -37,12 +36,12 @@ summary:
   temporary_closure: null
   admission: null
   parking: "단기: 기본 30분 1,200원·일 최대 24,000원 / 장기·예약: 시간당 1,000원·일 최대 9,000원 (소형 기준, 최초 10분 무료)"
-  transit: null
-  official_url: "https://airport.kr/ap_ko/969/subview.do"
+  transit: "공항철도 인천공항1터미널역·2터미널역 (서울역에서 직통 43·51분)"
+  official_url: "https://www.airport.kr/ap_ko/969/subview.do"
 parking_lots:
   - parking_id: "icn-short"
     label: "P1"
-    parking_name: "단기주차장"
+    parking_name: "단기주차장 (T1·T2 터미널 앞)"
     road_address: null
     lat: null
     lng: null
@@ -54,8 +53,8 @@ parking_lots:
     feature: "짧은 배웅·마중용. 제1·제2합동청사 주차장도 단기주차장 요금이 적용됩니다."
     capacity: null
     restrictions: "승용차 전용 · 높이 2.1m 이하"
-    verified_at: "2026-11-10"
-    source_url: "https://airport.kr/ap_ko/969/subview.do"
+    verified_at: "2026-11-15"
+    source_url: "https://www.airport.kr/ap_ko/969/subview.do"
   - parking_id: "icn-long"
     label: "P2"
     parking_name: "장기주차장 (제1여객터미널 주차타워 포함)"
@@ -67,90 +66,259 @@ parking_lots:
     open_hours: null
     fee_text: "최초 10분 무료 · 시간당 1,000원 · 일 최대 9,000원 (소형)"
     walking_text: null
-    feature: "공사는 1일 이상 주차하면 장기주차장 이용을 권장합니다. 터미널과는 공항셔틀(01번 T1↔장기, 02번 T2↔장기)이 안내돼 있습니다."
+    feature: "1일 이상 주차는 장기주차장 권장(공사 안내). 무료 셔틀 공항01번(T1↔장기주차장), 공항02번(T2↔장기주차장)."
     capacity: null
     restrictions: null
-    verified_at: "2026-11-10"
-    source_url: "https://airport.kr/ap_ko/969/subview.do"
+    verified_at: "2026-11-15"
+    source_url: "https://www.airport.kr/ap_ko/969/subview.do"
   - parking_id: "icn-reserved"
     label: "P3"
-    parking_name: "예약주차장"
+    parking_name: "예약주차장 (T1 P5 · T2 예약주차장)"
     road_address: null
     lat: null
     lng: null
-    entrance_note: null
+    entrance_note: "단기·장기주차장과 입구가 다릅니다."
     operating_days: null
     open_hours: null
     fee_text: "최초 10분 무료 · 시간당 1,000원 · 일 최대 9,000원 (소형)"
     walking_text: null
-    feature: "예약 홈페이지에서 미리 예약. 요금은 실제 입출차 시간 기준으로 부과됩니다."
+    feature: "입차 45일 전~4시간 전 온라인 예약, 예약 보증금 10,000원, 카드 결제 전용. 요금은 실제 입출차 시간 기준."
     capacity: null
     restrictions: "높이 2.8m 이상 대형차량 이용 불가"
-    verified_at: "2026-11-10"
-    source_url: "https://airport.kr/ap_ko/969/subview.do"
+    verified_at: "2026-11-15"
+    source_url: "https://parking.airport.kr/reserve"
 transport:
   car:
-    summary: "하루 이상 세우면 장기주차장이나 예약주차장, 몇 시간 안에 돌아오면 단기주차장이 요금 구조상 맞습니다."
+    summary: "서울·김포 방면은 영종대교(인천국제공항고속도로), 송도 방면은 인천대교로 들어옵니다."
     steps:
-      - "출국 전 인천공항 누리집의 '예상 주차요금' 계산과 '주차장 혼잡도' 메뉴를 확인합니다."
-      - "장기주차장에 세웠다면 공항셔틀 01번(T1↔장기주차장) 또는 02번(T2↔장기주차장)으로 터미널로 이동합니다."
-      - "귀국 후 사전 무인정산기나 인천공항 가이드앱(주차안내-요금결제)으로 미리 정산하면 출구에서 따로 절차 없이 나갈 수 있습니다."
-    note: "하이패스 결제는 5만원 이상이면 불가하다고 안내돼 있습니다. 일반 신용카드를 준비하세요."
+      - "출발 전 인천공항 누리집 '주차장 혼잡도'와 '예상 주차요금'을 확인합니다."
+      - "하루 이상이면 장기주차장이나 예약주차장에 세우고 무료 셔틀(공항01·02번)로 터미널에 갑니다."
+      - "귀국 후 사전 무인정산기나 인천공항 가이드앱(주차안내-요금결제)으로 정산하면 출구에서 따로 절차 없이 나갑니다."
+    note: "하이패스 결제는 5만원 이상이면 안 됩니다. 일반 신용카드를 준비하세요."
   walk:
     summary: null
     steps: []
-    note: "공항철도·리무진버스 노선은 이 글에서 확인하지 않았습니다. 인천공항 누리집 '대중교통' 메뉴에서 보세요."
+    note: "장기주차장 탑승장에서 터미널까지 걷는 시간은 확인되지 않음입니다."
   rail:
-    summary: null
+    summary: "공항철도 직통열차는 서울역에서 T1 43분·T2 51분(어른 13,000원), 일반열차는 T1 59분·T2 66분입니다."
     steps: []
-    note: null
+    note: "공항버스(리무진) 노선별 시간·요금은 확인되지 않음입니다."
 route_map: null
 restaurants: []
 cautions:
-  - "요금은 소형차(승용차 전 차종, 15인승 이하 승합, 1톤 이하 화물) 기준입니다. 대형차 요금은 공식 표에서 따로 확인하세요."
+  - "요금은 소형차(승용차 전 차종, 15인승 이하 승합, 최대적재량 1톤 이하 화물) 기준입니다."
   - "감면은 중복되지 않고 감면율이 높은 1개만 적용됩니다. 영업용 차량(콜밴·택시 등)은 원칙적으로 제외입니다."
-  - "다자녀가구(2자녀 이상, 막내 만 18세 이하) 감면은 자동감면 홈페이지 사전등록이 필요하고, 현장 감면은 되지 않습니다. 미등록이면 사후 감면(환불)을 신청합니다."
-  - "연휴에는 주차장이 붐빌 수 있습니다(일반적 안내). 실시간 상황은 공식 '주차장 혼잡도' 메뉴에서만 확인하세요."
+  - "다자녀가구 감면은 자동감면 홈페이지 사전등록이 필요하고, 현장 감면은 되지 않습니다."
+  - "공사는 매일 05~08시, 16~19시에 주차장 혼잡을 예상한다고 안내합니다."
 sources:
   - title: "인천국제공항공사 · 교통·주차 > 주차요금"
-    url: "https://airport.kr/ap_ko/969/subview.do"
-    checked_at: "2026-11-10"
-related_slugs: []
-hero_image: null
-hero_alt: null
+    url: "https://www.airport.kr/ap_ko/969/subview.do"
+    checked_at: "2026-11-15"
+  - title: "인천국제공항공사 · 제1여객터미널 주차장 안내"
+    url: "https://www.airport.kr/ap_ko/957/subview.do"
+    checked_at: "2026-11-15"
+  - title: "인천국제공항공사 · 제2여객터미널 주차장 안내"
+    url: "https://www.airport.kr/ap_ko/958/subview.do"
+    checked_at: "2026-11-15"
+  - title: "인천국제공항공사 · 주차대행(발레파킹) T1"
+    url: "https://www.airport.kr/ap_ko/960/subview.do"
+    checked_at: "2026-11-15"
+  - title: "인천국제공항공사 · 주차대행(발레파킹) T2"
+    url: "https://www.airport.kr/ap_ko/961/subview.do"
+    checked_at: "2026-11-15"
+  - title: "인천국제공항공사 · 공항셔틀 01번 (T1↔장기주차장)"
+    url: "https://www.airport.kr/ap_ko/991/subview.do"
+    checked_at: "2026-11-15"
+  - title: "인천국제공항공사 · 공항셔틀 02번 (T2↔장기주차장)"
+    url: "https://www.airport.kr/ap_ko/992/subview.do"
+    checked_at: "2026-11-15"
+  - title: "인천국제공항공사 · 공항셔틀 03번 (T2→T1→AICC)"
+    url: "https://www.airport.kr/ap_ko/990/subview.do"
+    checked_at: "2026-11-15"
+  - title: "인천국제공항공사 · 주차장 혼잡도"
+    url: "https://www.airport.kr/ap_ko/962/subview.do"
+    checked_at: "2026-11-15"
+  - title: "인천국제공항공사 · 전기차 충전소 안내"
+    url: "https://www.airport.kr/ap_ko/970/subview.do"
+    checked_at: "2026-11-15"
+  - title: "인천국제공항공사 · 대중교통 > 열차"
+    url: "https://www.airport.kr/ap_ko/984/subview.do"
+    checked_at: "2026-11-15"
+  - title: "인천국제공항공사 · 대중교통 > 버스 (제1여객터미널)"
+    url: "https://www.airport.kr/ap_ko/974/subview.do"
+    checked_at: "2026-11-15"
+  - title: "인천국제공항공사 · 대중교통 > 버스 (제2여객터미널)"
+    url: "https://www.airport.kr/ap_ko/975/subview.do"
+    checked_at: "2026-11-15"
+  - title: "인천공항 예약주차 (이용 안내·T1·T2 예약주차장 위치 공지·보증금 공지)"
+    url: "https://parking.airport.kr/reserve"
+    checked_at: "2026-11-15"
+  - title: "공항철도 · 직통열차 소개"
+    url: "https://www.airportrailroad.com/train/express/introduce"
+    checked_at: "2026-11-15"
+  - title: "공항철도 · 일반열차 운임안내"
+    url: "https://www.airportrailroad.com/train/normal/fare"
+    checked_at: "2026-11-15"
+  - title: "신공항하이웨이 · 통행료 안내"
+    url: "https://www.hiway21.com/user/nd64668.do"
+    checked_at: "2026-11-15"
+  - title: "인천대교 · 통행요금 안내"
+    url: "https://www.incheonbridge.com/info/tollfee"
+    checked_at: "2026-11-15"
+  - title: "OpenStreetMap"
+    url: "https://www.openstreetmap.org/copyright"
+    checked_at: "2026-11-15"
+related_slugs:
+  - gimpo-airport-parking-fee
+hero_image: /images/posts/incheon-airport-parking-fee-thumbnail.webp
+hero_alt: 인천공항 주차요금 단기 일 24,000원, 장기·예약 일 9,000원과 할인 50% 안내 썸네일 일러스트
+body_layout: story
+story_anchors:
+  - href: '#summary'
+    label: 요금표
+  - href: '#days'
+    label: 며칠 세우면
+  - href: '#where'
+    label: T1·T2 주차장
+  - href: '#discount'
+    label: 할인
+  - href: '#pay'
+    label: 정산
+  - href: '#checklist'
+    label: 체크리스트
+  - href: '#transport'
+    label: 가는 법
+  - href: '#faq'
+    label: 자주 묻는 질문
+  - href: '#sources'
+    label: 출처
+faq:
+  - q: 인천공항 장기주차장 셔틀버스는 얼마나 자주 다니나요?
+    a: T1 공항01번은 8~16분 간격으로 04:30~24:00에 다니고 왕복 16분입니다. T2 공항02번은 셔틀 안내 페이지에 6~30분 간격·24시간 운행·왕복 30분으로 적혀 있고, T2 주차장 안내 페이지에는 5~16분 간격·약 15분으로 달리 적혀 있습니다. 두 노선 모두 무료입니다.
+  - q: 경차 할인을 받으려면 서류를 내야 하나요?
+    a: 아니요. 경형자동차는 행정정보 조회로 자동 확인돼 50% 감면됩니다. 할인을 못 받았다면 차량등록증 사본 1부로 사후감면을 인정받을 수 있습니다. 사후감면 신청 기한은 공식 페이지에 없어 확인되지 않음이라 고객센터(1577-2600)에 물어보세요.
+  - q: 공식 주차대행(발레파킹) 요금은 얼마인가요?
+    a: 서비스 요금은 일반차량 20,000원, 경차·국가유공자·장애인 차량 10,000원이고 주차료는 장기주차장 요금으로 따로 냅니다. 예약해야만 이용할 수 있고 T1은 단기주차장 지하1층 A구역, T2는 단기주차장 지하1층 서편에서 차를 맡깁니다.
+  - q: 예약주차장은 언제까지 예약하고 취소할 수 있나요?
+    a: 입차 예정 시각 45일 전부터 4시간 전까지 예약하고, 주차 기간은 1일 이상 30일 미만입니다. 예약 보증금 10,000원은 예정 시각 전에 취소하면 전액, 예정 시각부터 4시간 안에 취소하면 50%를 돌려받고, 4시간 안에 들어오지 않으면 돌려받지 못합니다.
+  - q: 하이패스로 주차요금을 낼 수 있나요?
+    a: 출구 유인·무인부스에서 하이패스 카드를 쓸 수 있지만 5만원 이상은 결제되지 않습니다. 예약주차장은 카드 결제 전용이라 현금과 하이패스를 쓸 수 없습니다.
+  - q: 배웅만 하고 바로 나가도 요금이 나오나요?
+    a: 단기·장기·예약주차장 모두 최초 10분은 무료입니다. 10분을 넘기면 단기주차장은 기본 30분 1,200원부터 붙습니다.
+  - q: 다자녀 할인은 현장에서 바로 받을 수 있나요?
+    a: 2자녀 이상이고 막내가 만 18세 이하인 한국 국적 가구가 대상이며, 자동감면 홈페이지 사전등록 승인이 있어야 합니다. 등록하지 않았다면 현장 감면은 안 되고 같은 홈페이지에서 사후 감면(환불)을 신청합니다.
+  - q: T1과 T2 주차요금이 다른가요?
+    a: 공사 주차요금표는 터미널을 나누지 않고 단기·장기·예약주차장별로 같은 요금을 안내합니다. 제1·제2합동청사 주차장은 단기주차장 요금이 적용됩니다.
 ---
 
-import Callout from "../../components/mdx/Callout.astro";
+import Figure from "../../components/mdx/Figure.astro";
 
-<Callout title="확인 범위">
-주차장별 요금, 차량 구분, 감면 조건, 정산 방법은 인천국제공항공사 주차요금 페이지에서 2026년 11월 10일에 확인했습니다. 주차장 면수, 운영시간, 터미널까지 걷는 거리는 같은 페이지에 없어 확인되지 않음으로 두었습니다.
-</Callout>
+<h2 id="summary">한눈에 보는 인천공항 주차요금</h2>
 
-## 한눈에 보는 인천공항 주차요금 (소형 기준)
+몇 시간이면 단기주차장, 하루를 넘기면 장기·예약주차장이 쌉니다. 세 곳 모두 최초 10분은 무료입니다.
 
-| 주차장 | 최초 | 기본·추가 | 일 최대 |
-| --- | --- | --- | --- |
-| 단기주차장 | 10분 무료 | 기본 30분 1,200원, 추가 15분당 600원 (시간당 2,400원) | 24,000원 |
-| 장기주차장 (T1 주차타워 포함) | 10분 무료 | 시간당 1,000원 | 9,000원 |
-| 예약주차장 | 10분 무료 | 시간당 1,000원 | 9,000원 |
+<Figure src="/images/posts/incheon-airport-parking-fee-table.webp" alt="인천공항 단기 장기 예약주차장 요금 비교표" width={1200} height={800} />
 
-## 며칠 세우면 얼마일까
+| 주차장 (소형) | 기본·추가 | 일 최대 |
+| --- | --- | --- |
+| 단기주차장 | 기본 30분 1,200원, 추가 15분당 600원 (시간당 2,400원) | 24,000원 |
+| 장기주차장 (T1 주차타워 포함) | 시간당 1,000원 | 9,000원 |
+| 예약주차장 | 시간당 1,000원 | 9,000원 |
 
-공식 요금표의 일 최대 요금이 하루마다 그대로 반복된다고 가정하고 곱한 단순 계산입니다. 여러 날에 걸친 정산 방식은 공식 페이지에 따로 적혀 있지 않아, 실제 금액은 인천공항 누리집의 '예상 주차요금' 계산으로 확인하세요.
+대형차(16인승 이상 승합, 적재량 1톤 초과 화물) 단기·장기 요금은 공식 표에 없어 확인되지 않음입니다.
+
+<h2 id="days">며칠 세우면 얼마일까</h2>
+
+일 최대 요금이 날마다 반복된다고 가정한 상한 계산입니다. 3일이면 장기주차장이 45,000원 쌉니다.
+
+<Figure src="/images/posts/incheon-airport-parking-cost-by-days.webp" alt="인천공항 주차 1일 2일 3일 5일 7일 단기주차장과 장기 예약주차장 최대 요금 비교 막대그래프" width={1200} height={880} />
 
 | 기간 (가정) | 단기주차장 | 장기·예약주차장 |
 | --- | --- | --- |
 | 1일 | 최대 24,000원 | 최대 9,000원 |
 | 3일 | 최대 72,000원 | 최대 27,000원 |
-| 5일 | 최대 120,000원 | 최대 45,000원 |
+| 7일 | 최대 168,000원 | 최대 63,000원 |
 
-## 할인 받을 수 있는 차량
+여러 날 정산 방식은 공식 페이지에 따로 적혀 있지 않습니다. 실제 금액은 인천공항 누리집 '예상 주차요금'으로 확인하세요.
+
+<h2 id="where">T1·T2 어디에 세우나요</h2>
+
+단기주차장은 터미널 바로 앞, 장기주차장은 조금 떨어져 있어 셔틀을 탑니다. 예약주차장은 단기·장기와 입구가 다른 별도 주차장입니다.
+
+<Figure src="/images/posts/incheon-airport-t1-t2-parking-map.webp" alt="인천공항 T1 T2 단기주차장 장기주차장 예약주차장 P5 위치를 표시한 주차장 위치 개념도" width={1200} height={1358} />
+
+- **T1 예약주차장 P5**: 그랜드 하얏트 호텔 맞은편 실외주차장. 00~05시에는 셔틀이 없어 터미널까지 걸어서 약 30분입니다.
+- **T2 예약주차장**: 영종구 운서동 3233-51. 장기주차장과 입구가 다르고 셔틀 공항02번을 탑니다.
+- 주차장별 면수와 터미널까지 걷는 시간은 확인되지 않음입니다.
+
+<h3>장기주차장 셔틀버스</h3>
+
+T1은 공항01번, T2는 공항02번이고 모두 무료입니다.
+
+<Figure src="/images/posts/incheon-airport-long-term-parking-shuttle.webp" alt="인천공항 장기주차장 셔틀버스 공항01번 T1 8~16분 간격과 공항02번 T2 24시간 운행 정류장 안내" width={1200} height={860} />
+
+<h3>공식 주차대행(발레파킹)</h3>
+
+예약해야만 쓸 수 있습니다. 서비스 요금과 별도로 장기주차장 요금이 붙습니다.
+
+<Figure src="/images/posts/incheon-airport-valet-parking.webp" alt="인천공항 공식 주차대행 T1 맥서브 T2 아마노코리아 접수 장소와 서비스 요금 20,000원 10,000원 안내" width={1200} height={800} />
+
+공항 밖 사설 주차대행은 공사와 무관하고, 피해가 나도 공사가 책임지지 않는다고 안내돼 있습니다.
+
+<h2 id="discount">할인 받을 수 있는 차량</h2>
+
+감면은 1개만 적용되고, 겹치면 감면율이 높은 쪽이 적용됩니다.
 
 | 대상 | 감면율 | 조건 |
 | --- | --- | --- |
 | 경차 | 50% | 서류 없음, 행정정보 조회로 확인 |
-| 장애인·국가유공자(상이등급) 등 | 50% | 서류 없음, 행정정보 연동 실시간 할인 |
+| 장애인·상이 국가유공자 등 | 50% | 서류 없음, 행정정보 연동 실시간 할인 |
 | 다자녀가구 | 50% | 2자녀 이상·막내 만 18세 이하, 자동감면 홈페이지 사전등록 |
 | 저공해 자동차 | 1·2종 50%, 3종 20% | 무공해차 통합누리집에서 확인된 차량 |
 
-문의는 인천국제공항 고객센터 1577-2600입니다(공식 페이지 표기).
+못 받았다면 사후감면을 신청합니다. 경차·저공해차는 차량등록증 사본 1부가 필요합니다.
+
+<h2 id="pay">정산과 출차</h2>
+
+주차장 안 사전 무인정산기에서 차량번호를 찾아 결제하면 출구에서 따로 절차 없이 나갑니다. 인천공항 가이드앱 '주차안내-요금결제'로도 됩니다.
+
+<Figure src="/images/posts/incheon-airport-parking-photo-t2-pay-station.webp" alt="인천공항 제2여객터미널 주차장의 카드전용 주차요금 정산기 3대와 AUTO PAY STATION 안내판" width={900} height={960} caption="인천공항 T2 주차장 주차요금 정산기 (2024년 10월 촬영)" credit="Narubaru7" creditUrl="https://commons.wikimedia.org/wiki/File:%EC%9D%B8%EC%B2%9C%EA%B3%B5%ED%95%ADT2_%EC%A3%BC%EC%B0%A8%EC%9A%94%EA%B8%88%EA%B3%84%EC%82%B0%EA%B8%B0_2024.jpg" license="CC BY 4.0" licenseUrl="https://creativecommons.org/licenses/by/4.0/deed.ko" />
+
+- 정산기: 선후불카드·신용카드·교통카드
+- 출구 유인부스: 현금·카드·하이패스 카드도 가능 (예약주차장은 유인부스 없음)
+- 해외 카드사 카드는 정산기 결제가 안 됩니다. 환불·승인취소는 2일 이상 걸립니다.
+
+<h2 id="checklist">출국 전 체크리스트(예약·하이패스·전기차)</h2>
+
+<Figure src="/images/posts/incheon-airport-parking-checklist.webp" alt="인천공항 출국 전 주차 체크리스트 예약주차장 45일 전 예약 보증금 10,000원 하이패스 5만원 전기차 충전 혼잡 시간" width={1200} height={960} />
+
+- **예약**: 입차 45일 전~4시간 전, 1일 이상 30일 미만. 예정 시각 ±4시간 안에 들어가야 합니다.
+- **하이패스**: 5만원 이상은 결제가 안 됩니다. 장기 주차라면 신용카드를 챙기세요.
+- **전기차**: 충전소 실시간 정보는 무공해차 통합누리집(ev.or.kr), 충전 관제콜센터 032-743-0990(24시)입니다. 충전 요금과 기수는 확인되지 않음입니다.
+- **혼잡 시간**: 공사는 매일 05~08시, 16~19시 혼잡을 예상합니다.
+
+<h2 id="transport">자차·공항철도로 가는 법</h2>
+
+<h3>자차: 영종대교와 인천대교</h3>
+
+서울·김포 쪽은 영종대교(인천국제공항고속도로), 송도 쪽은 인천대교를 건넙니다.
+
+<Figure src="/images/posts/incheon-airport-transport-car-toll.webp" alt="자차로 인천공항 가는 길 영종대교 인천국제공항고속도로와 인천대교 방향과 소형 통행료를 표시한 개념도" width={1200} height={930} />
+
+소형 통행료는 인천국제공항고속도로 인천공항영업소 3,200원, 북인천영업소 1,900원, 청라영업소 2,000원, 인천대교 2,000원입니다.
+
+<h3>공항철도·공항버스</h3>
+
+공항철도 인천공항1터미널역·2터미널역은 각 터미널 교통센터 지하 1층에 있습니다.
+
+<Figure src="/images/posts/incheon-airport-transport-arex.webp" alt="공항철도로 인천공항 가기 직통열차 43분 51분 13,000원과 일반열차 59분 66분 운임 비교표" width={1200} height={720} />
+
+<Figure src="/images/posts/incheon-airport-photo-arex-express-t1.webp" alt="인천공항1터미널역 교통센터의 공항철도 직통열차 승차권 발매기와 안내 표지" width={1200} height={900} caption="인천공항1터미널역 직통열차 타는 곳 (2024년 3월 촬영)" credit="MNXANL" creditUrl="https://commons.wikimedia.org/wiki/File:202403_AREX_Express_Train_Concourse_at_Incheon_International_Airport_Terminal_1_Station.jpg" license="CC BY-SA 4.0" licenseUrl="https://creativecommons.org/licenses/by-sa/4.0/deed.ko" />
+
+공항버스는 T1은 1층, T2는 지하 1층 교통센터 버스터미널에서 탑니다. 노선별 시간·요금은 확인되지 않음이라 인천공항 누리집 '버스' 메뉴에서 보세요.
+
+<h2 id="see-also">함께 보면 좋은 글</h2>
+
+- [김포공항 주차요금 국내선·국제선 요일별 1일 최대와 할인 조건](/gimpo-airport-parking-fee/)
+- [2026 스키장 개장일: 휘닉스 11.26, 용평·하이원 11.27 목표와 가는 길](/ski-resort-opening-2026/)
+- [2026 서울빛초롱축제 기간·운영시간·가는 법·주차 (청계천)](/seoul-lantern-festival-2026/)
