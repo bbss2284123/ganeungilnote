@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
+import remarkGfm from "remark-gfm";
 import { writeFileSync } from "node:fs";
 import { siteConfig } from "./site.config";
 import { headingSlug } from "./src/lib/slug";
@@ -78,7 +79,8 @@ export default defineConfig({
     },
   ],
   markdown: {
-    gfm: true,
+    gfm: false,
+    remarkPlugins: [[remarkGfm, { singleTilde: false }]],
     rehypePlugins: [rehypeArticle],
   },
 });
