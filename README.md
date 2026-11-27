@@ -70,9 +70,10 @@ GitHub Actions `Scheduled publish` 가 약 30분마다, 한국 시간 07:00–22
 6. 동선 그림이 개념도면 `route_map.schematic: true` 입니다. 화면과 설명에 `개념도·축척 없음` 이 붙습니다. 검증 전에는 `verified: false` 입니다.
 7. 발행하려면 `draft: false`, `sample: false`, `status` 가 `approved` 또는 `published`, `verified_at`, 출처 1개 이상이 필요합니다.
 8. 공개 시각은 `publishAt` 입니다. 미래로 두면 그 시각의 예약 배포 때 올라갑니다. 같은 한국 날짜에는 1편까지입니다.
-9. `npm run check` 로 스키마와 금지 표현을 확인한 뒤 커밋합니다.
+9. 발행 글에는 `public/images/posts/` 아래 1200×675 WebP 썸네일이 필요합니다. `hero_image` 와 `hero_alt` 를 같이 적습니다. 없거나 파일이 없거나 크기가 다르면 `npm run check` 와 빌드가 실패합니다.
+10. `npm run check` 로 스키마, 썸네일, 금지 표현을 확인한 뒤 커밋합니다.
 
-대표 사진이 없으면 카드는 분류 아이콘만 보여 줍니다. 사진이 있으면 `hero_image` 와 `hero_alt` 를 같이 적습니다. `docs/design-samples/` 의 썸네일과 주차 그림은 디자인 참고이며 글에 넣지 않습니다.
+`docs/design-samples/` 의 썸네일과 주차 그림은 디자인 참고이며 글에 넣지 않습니다.
 
 ## 글에 항상 붙는 구성
 

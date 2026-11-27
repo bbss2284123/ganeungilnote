@@ -8,9 +8,9 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && pagefind --site dist && tsx scripts/check-html.ts",
+    "build": "tsx scripts/check-content.ts && astro build && pagefind --site dist && tsx scripts/check-html.ts",
     "preview": "astro preview",
-    "check": "tsx --test scripts/display.test.ts scripts/publish-due.test.ts && tsx scripts/check-content.ts",
+    "check": "tsx --test scripts/display.test.ts scripts/publish-due.test.ts scripts/image-size.test.ts && tsx scripts/check-content.ts",
     "test": "npm run check"
   },
   "dependencies": {

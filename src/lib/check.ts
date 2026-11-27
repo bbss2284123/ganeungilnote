@@ -1,10 +1,11 @@
-import { readdirSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import { parse } from "yaml";
 import { siteConfig } from "../../site.config";
 import { postSchema } from "./post-schema";
 import { publishDay } from "./publish-due";
+import { isRequiredThumbnailSize, readImageSize } from "./image-size";
 
 export interface Issue {
   level: "error" | "info";
@@ -81,6 +82,26 @@ export function checkPosts(posts: LoadedPost[], banned = loadBanned()): Issue[] 
     });
     if (!data.draft && /예시·미검증|예시읍/.test(blob)) {
       issues.push({ level: "error", file: post.file, message: "발행 글에 시안 표식을 남기지 않습니다." });
+    }
+    if (data.hero_image) {
+      const file = path.join(process.cwd(), "public", data.hero_image.replace(/^\//, ""));
+      if (!existsSync(file)) {
+        issues.push({ level: "error", file: post.file, message: `hero_image 파일이 없습니다: ${data.hero_image}` });
+      } else {
+        if (!data.hero_image.endsWith(".webp")) {
+          issues.push({ level: "error", file: post.file, message: `썸네일은 WebP여야 합니다: ${data.hero_image}` });
+        }
+        const size = readImageSize(file);
+        if (!size) {
+          issues.push({ level: "error", file: post.file, message: `썸네일 크기를 읽지 못했습니다: ${data.hero_image}` });
+        } else if (!isRequiredThumbnailSize(size)) {
+          issues.push({
+            level: "error",
+            file: post.file,
+            message: `썸네일은 1200×675여야 합니다. 실제 ${size.width}×${size.height}: ${data.hero_image}`,
+          });
+        }
+      }
     }
     if (!data.draft && !data.sample) {
       const at = data.publishAt ?? data.date;

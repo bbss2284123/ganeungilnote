@@ -209,7 +209,24 @@ export const postSchema = z
         });
       }
     }
-    if (post.hero_image && !post.hero_alt?.trim()) {
+    if (!post.draft) {
+      if (!post.hero_image) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["hero_image"],
+          message: "발행 글에는 1200×675 WebP 썸네일(hero_image)이 필요합니다.",
+        });
+      } else if (!/^\/images\/posts\/[^/]+\.webp$/.test(post.hero_image)) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["hero_image"],
+          message: "썸네일은 /images/posts/ 아래 WebP 한 파일이어야 합니다.",
+        });
+      }
+      if (!post.hero_alt?.trim()) {
+        ctx.addIssue({ code: "custom", path: ["hero_alt"], message: "발행 글에는 hero_alt가 필요합니다." });
+      }
+    } else if (post.hero_image && !post.hero_alt?.trim()) {
       ctx.addIssue({ code: "custom", path: ["hero_alt"], message: "hero_image가 있으면 hero_alt가 필요합니다." });
     }
     if (post.route_map && !post.route_map.schematic && !post.route_map.verified) {
