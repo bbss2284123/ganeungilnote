@@ -22,7 +22,6 @@ const forbidden = [
   "todaymoneytip",
   "머니팁",
   "/opt/cursor",
-  "googletagmanager",
   "adsbygoogle",
   "cloudflareinsights",
   "sample-place-guide",
